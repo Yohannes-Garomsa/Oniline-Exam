@@ -1,0 +1,322 @@
+/* auth.css - Shared styles for login and register pages */
+
+.auth-body {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Inter', 'Poppins', sans-serif;
+    margin: 0;
+}
+
+.auth-container, .register-container {
+    max-width: 1200px;
+    width: 100%;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.auth-grid, .register-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 700px;
+}
+
+/* Left illustration side */
+.auth-illustration, .register-illustration {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-illustration::before, .register-illustration::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    top: -50%;
+    left: -50%;
+    animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.illustration-content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+}
+
+.illustration-content svg {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+}
+
+.illustration-content h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.illustration-content p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+.illustration-features, .benefits-list {
+    text-align: left;
+    margin-top: 30px;
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.feature-item, .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.feature-item i, .benefit-item i {
+    color: #f9a826;
+    font-size: 1.2rem;
+}
+
+/* Right side forms */
+.auth-form-container, .register-form-container {
+    padding: 50px;
+    background: white;
+}
+
+.auth-header, .register-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.auth-logo, .register-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.auth-logo span, .register-logo span {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e3c72;
+}
+
+.auth-header h1, .register-header h1 {
+    font-size: 2rem;
+    color: #1e3c72;
+    margin-bottom: 10px;
+}
+
+.auth-header p, .register-header p {
+    color: #64748b;
+}
+
+/* Form elements */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #334155;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: #f9a826;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #f9a826;
+    box-shadow: 0 0 0 4px rgba(249,168,38,0.1);
+}
+
+.password-field {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* Role selector */
+.role-selector {
+    display: flex;
+    gap: 15px;
+    margin: 10px 0 20px;
+}
+
+.role-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.role-option input[type="radio"] {
+    display: none;
+}
+
+.role-option span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    color: #64748b;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.role-option input[type="radio"]:checked + span {
+    background: #f9a826;
+    color: white;
+    border-color: #f9a826;
+}
+
+/* Checkbox and terms */
+.checkbox-container, .terms {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.terms input {
+    width: 18px;
+    height: 18px;
+    accent-color: #f9a826;
+}
+
+.terms label {
+    color: #475569;
+    font-size: 0.9rem;
+}
+
+.terms a {
+    color: #f9a826;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Buttons */
+.btn, .btn-primary, .btn-register {
+    width: 100%;
+    background: #f9a826;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover, .btn-primary:hover, .btn-register:hover {
+    background: #e59400;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(249,168,38,0.2);
+}
+
+/* Footer links */
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #64748b;
+}
+
+.auth-footer a, .login-link a {
+    color: #f9a826;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 25px;
+    color: #64748b;
+}
+
+.auth-note {
+    font-size: 0.85rem;
+    margin-top: 15px;
+    opacity: 0.7;
+}
+.forgot-link {
+    text-align: right;
+}
+/* Responsive */
+@media (max-width: 992px) {
+    .auth-grid, .register-grid {
+        grid-template-columns: 1fr;
+    }
+    .auth-illustration, .register-illustration {
+        display: none;
+    }
+    .auth-form-container, .register-form-container {
+        padding: 30px;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}

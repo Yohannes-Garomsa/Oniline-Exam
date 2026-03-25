@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard · Online Examination System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/student.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="student-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../../assets/image/OIP.webp" alt="Ethio-Italy Logo">
+                    <span>OES</span>
+                    <span class="role-badge">Student</span>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="nav-item"><a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="nav-item"><a href="available-exams.html" class="nav-link"><i class="fas fa-file-alt"></i> Available Exams</a></li>
+                <li class="nav-item"><a href="results.html" class="nav-link"><i class="fas fa-chart-bar"></i> My Results</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar" id="userInitials">SS</div>
+                    <div class="user-info">
+                        <h4 id="userName">Student Name</h4>
+                        <p id="userId">ID: ETUSE/XXX/2013</p>
+                        <p id="userDept">Department</p>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search exams...">
+                </div>
+                <div class="top-bar-actions">
+                    <div class="lang-switch">
+                        <button class="lang-btn active">EN</button>
+                        <button class="lang-btn">አማ</button>
+                    </div>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="welcome-text">
+                    <h2>Welcome back, <span id="welcomeName">Student</span>! 👋</h2>
+                    <p id="welcomeMessage">Ready to continue your academic journey?</p>
+                </div>
+                <div class="welcome-stats" id="welcomeStats">
+                    <div class="stat-item"><span class="stat-number" id="gpa">0.0</span><span class="stat-label">GPA</span></div>
+                    <div class="stat-item"><span class="stat-number" id="examsTaken">0</span><span class="stat-label">Exams Taken</span></div>
+                    <div class="stat-item"><span class="stat-number" id="avgScore">0%</span><span class="stat-label">Avg. Score</span></div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>Available Exams</h3>
+                        <p class="stat-number" id="availableExams">0</p>
+                        <span class="stat-trend" id="dueToday"></span>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>Completed</h3>
+                        <p class="stat-number" id="completedExams">0</p>
+                        <span class="stat-trend">This semester</span>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>Upcoming</h3>
+                        <p class="stat-number" id="upcomingExams">0</p>
+                        <span class="stat-trend" id="nextDeadline"></span>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-calendar"></i></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-info">
+                        <h3>Avg. Time</h3>
+                        <p class="stat-number" id="avgTime">0m</p>
+                        <span class="stat-trend">Per exam</span>
+                    </div>
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                </div>
+            </div>
+
+            <!-- Available Exams Section -->
+            <div class="section-header">
+                <h3><i class="fas fa-file-alt"></i> Available Exams</h3>
+                <a href="available-exams.html" class="view-all" id="viewAllExams">View All →</a>
+            </div>
+            <div class="exams-grid" id="examsGrid">
+                <!-- Dynamic exam cards -->
+            </div>
+
+            <!-- Recent Results -->
+            <div class="section-header">
+                <h3><i class="fas fa-chart-bar"></i> Recent Results</h3>
+                <a href="results.html" class="view-all">View All →</a>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="resultsTable">
+                    <thead>
+                        <tr><th>Exam Title</th><th>Course</th><th>Date</th><th>Score</th><th>Percentage</th><th>Status</th><th>Action</th></tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                        <!-- Dynamic rows -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>Ethio-Italy Polytechnic College · Department of Information Technology</p>
+                <p>© 2026 E.C. · <span id="footerDate"></span></p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Exam Security Modal -->
+    <div class="modal" id="examSecurityModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-shield-alt"></i> Secure Exam Access</h3>
+                <button class="modal-close" id="closeSecurityModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="security-icon"><i class="fas fa-lock"></i></div>
+                <div class="exam-title-box">
+                    <h4 id="securityExamName">Exam Title</h4>
+                    <p id="securityCourseCode">Course Code</p>
+                </div>
+                <div class="security-rules">
+                    <p><i class="fas fa-exclamation-triangle"></i> <strong>Security Requirements:</strong></p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Fullscreen mode enabled</li>
+                        <li><i class="fas fa-check-circle"></i> Tab switching blocked</li>
+                        <li><i class="fas fa-check-circle"></i> Keyboard shortcuts disabled</li>
+                        <li><i class="fas fa-check-circle"></i> Copy/paste disabled</li>
+                        <li><i class="fas fa-check-circle"></i> Auto-save every 30 seconds</li>
+                    </ul>
+                </div>
+                <div class="password-field">
+                    <label><i class="fas fa-key"></i> Enter Exam Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="examPassword" placeholder="Enter password">
+                        <button type="button" class="toggle-password"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-cancel" id="cancelSecurityBtn">Cancel</button>
+                    <button class="btn-start-secure" id="verifyPasswordBtn">Verify & Start Exam</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/auth-check.js"></script>
+    <script src="../../assets/js/student.js"></script>
+</body>
+</html>

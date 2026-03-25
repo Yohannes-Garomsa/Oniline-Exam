@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Online Examination System</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-grid">
+            <!-- Left Side - Illustration -->
+            <div class="auth-illustration">
+                <div class="illustration-content">
+                    <!-- SVG illustration (keep as is) -->
+                    <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- ... (same SVG as before) ... -->
+                    </svg>
+                    <h2>Welcome Back!</h2>
+                    <p>Secure • Reliable • Efficient</p>
+                    <div class="illustration-features">
+                        <div class="feature-item"><i class="fas fa-check-circle"></i><span>Timed Examinations</span></div>
+                        <div class="feature-item"><i class="fas fa-check-circle"></i><span>Instant Results</span></div>
+                        <div class="feature-item"><i class="fas fa-check-circle"></i><span>Secure Platform</span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Side - Login Form -->
+            <div class="auth-form-container">
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="#1e3c72"/>
+                            <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="28" cy="26" r="4" fill="#f9a826"/>
+                        </svg>
+                        <span>OES</span>
+                    </div>
+                    <h1>Sign In</h1>
+                    <p>Welcome back! Please enter your credentials</p>
+                </div>
+                <form class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email or Student ID</label>
+                        <input type="text" id="email" placeholder="Enter your email or ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock"></i> Password</label>
+                        <div class="password-field">
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox"> <span class="checkmark"></span> Remember me
+                        </label>
+                        <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
+                    </div>
+                    <div class="form-role">
+                        <label>Login as:</label>
+                        <div class="role-selector">
+                            <label class="role-option"><input type="radio" name="role" value="student" checked> <span><i class="fas fa-user-graduate"></i> Student</span></label>
+                            <label class="role-option"><input type="radio" name="role" value="instructor"> <span><i class="fas fa-chalkboard-teacher"></i> Instructor</span></label>
+                            <label class="role-option"><input type="radio" name="role" value="admin"> <span><i class="fas fa-user-cog"></i> Admin</span></label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="register.html">Register here</a></p>
+                    <p class="auth-note">For Ethio-Italy Polytechnic College use only</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../assets/js/auth.js"></script>
+</body>
+</html>

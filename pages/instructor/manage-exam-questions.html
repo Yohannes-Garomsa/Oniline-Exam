@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Exam Questions · Instructor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/instructor.css">
+    <style>
+        .page-header { margin-bottom: 25px; }
+        .exam-selector { background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; display: flex; gap: 20px; align-items: center; border: 1px solid #edf2f7; }
+        .exam-selector select { flex: 1; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; }
+        .btn-load { background: #1e3c72; color: white; border: none; padding: 12px 30px; border-radius: 40px; font-weight: 600; cursor: pointer; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px; }
+        .question-list { background: white; border-radius: 20px; padding: 25px; border: 1px solid #edf2f7; }
+        .question-list h3 { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .question-item { display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px solid #edf2f7; }
+        .question-item:last-child { border-bottom: none; }
+        .question-text { flex: 1; font-size: 0.95rem; }
+        .order-input, .marks-input { width: 70px; padding: 8px; border: 2px solid #e2e8f0; border-radius: 8px; text-align: center; }
+        .btn-icon { width: 36px; height: 36px; border-radius: 8px; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-add { background: #28a745; color: white; }
+        .btn-remove { background: #dc3545; color: white; }
+        .btn-save-order { background: #1e3c72; color: white; border: none; padding: 10px 20px; border-radius: 30px; margin-top: 20px; cursor: pointer; }
+        .empty-message { text-align: center; padding: 30px; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar (same as instructor) -->
+        <aside class="instructor-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../../assets/image/OIP.webp" alt="Ethio-Italy Logo">
+                    <span>OES</span>
+                    <span class="role-badge">Instructor</span>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="nav-item"><a href="manage-exams.html" class="nav-link"><i class="fas fa-file-alt"></i> Manage Exams</a></li>
+                <li class="nav-item"><a href="manage-exam-questions.html" class="nav-link active"><i class="fas fa-tasks"></i> Exam Questions</a></li>
+                <li class="nav-item"><a href="manage-questions.html" class="nav-link"><i class="fas fa-question-circle"></i> Question Bank</a></li>
+                <li class="nav-item">
+                    <a href="grade-exams.html" class="nav-link">
+                        <i class="fas fa-check-double"></i>
+                        <span>Grade Exams</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="results.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Results</span>
+                    </a>
+                </li>   
+                <li class="nav-item"><a href="reports.html" class="nav-link"><i class="fas fa-chart-bar"></i> Reports</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar" id="userInitials">IN</div>
+                    <div class="user-info">
+                        <h4 id="userName">Instructor</h4>
+                        <p id="userEmail">instructor@oes.edu.et</p>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Search..."></div>
+                <div class="top-bar-actions">
+                    <div class="lang-switch"><button class="lang-btn active">EN</button><button class="lang-btn">አማ</button></div>
+                    <div class="notifications"><i class="fas fa-bell"></i><span class="badge">3</span></div>
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h1>Manage Exam Questions</h1>
+            </div>
+
+            <div class="exam-selector">
+                <select id="examSelect">
+                    <option value="">-- Select an exam --</option>
+                </select>
+                <button class="btn-load" id="loadExamBtn">Load Exam</button>
+            </div>
+
+            <div id="questionsPanel" style="display: none;">
+                <div class="two-column">
+                    <!-- Left: Questions already in exam -->
+                    <div class="question-list">
+                        <h3><i class="fas fa-check-circle" style="color:#28a745;"></i> Questions in Exam</h3>
+                        <div id="examQuestionsList" class="exam-questions-list"></div>
+                        <button class="btn-save-order" id="saveOrderBtn" style="display: none;">Save Order & Marks</button>
+                    </div>
+
+                    <!-- Right: Available questions from question bank -->
+                    <div class="question-list">
+                        <h3><i class="fas fa-plus-circle" style="color:#1e3c72;"></i> Available Questions</h3>
+                        <div id="availableQuestionsList" class="available-questions-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer"><p>Ethio-Italy Polytechnic College · <span id="footerDate"></span></p></div>
+        </main>
+    </div>
+
+    <script src="../../assets/js/auth-check.js"></script>
+    <script src="../../assets/js/instructor-exam-questions.js"></script>
+</body>
+</html>

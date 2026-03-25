@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.5"
+    />
+    <title>Ethio-Italy Online Examination System</title>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- Font Awesome 6 (Free) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Additional fixes */
+      .btn-large {
+        padding: 1rem 2rem !important;
+        font-size: 1.1rem !important;
+      }
+
+      .hero-buttons .btn {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+      }
+
+      .role-card .btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      .role-card .btn-primary {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .role-card .btn-primary:hover {
+        background: var(--primary-dark);
+      }
+
+      /* About and Contact sections */
+      #about,
+      #contact {
+        scroll-margin-top: 80px;
+        padding: 80px 0;
+      }
+
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+      }
+
+      .about-text h3 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+      }
+
+      .about-text p {
+        margin-bottom: 20px;
+        color: var(--gray-600);
+        line-height: 1.8;
+      }
+
+      .about-stats {
+        display: flex;
+        gap: 30px;
+        margin-top: 30px;
+      }
+
+      .about-stat {
+        text-align: center;
+      }
+
+      .about-stat .number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        display: block;
+      }
+
+      .about-stat .label {
+        color: var(--gray-600);
+        font-size: 0.9rem;
+      }
+
+      .about-image img {
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 40px;
+      }
+
+      .contact-info-card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-md);
+      }
+
+      .contact-info-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      .contact-info-item i {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+
+      .contact-info-item h4 {
+        margin: 0 0 5px 0;
+        color: var(--gray-900);
+      }
+
+      .contact-info-item p {
+        margin: 0;
+        color: var(--gray-600);
+      }
+
+      .contact-form {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-md);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid var(--gray-200);
+        border-radius: 10px;
+        font-family: inherit;
+        transition: all 0.3s;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+      }
+
+      .form-group textarea {
+        height: 120px;
+        resize: vertical;
+      }
+
+      .btn-submit {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-submit:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 768px) {
+        .about-content,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+        }
+
+        .hero-buttons .btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-brand">
+          <img
+            src="assets/image/OIP.webp"
+            alt="Ethio-Italy Logo"
+            class="logo"
+          />
+          <span>OES</span>
+        </div>
+
+        <div class="nav-toggle" id="navToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li class="nav-buttons">
+            <a href="pages/auth/login.html" class="btn btn-outline">Login</a>
+            <a href="pages/auth/register.html" class="btn btn-primary"
+              >Register</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-image-full">
+          
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Features</span>
+          <h2>Why Choose Our Online Examination System?</h2>
+          <p>
+            Designed specifically for Ethio-Italy Polytechnic College with your
+            needs in mind
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon bg-blue">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Secure & Fair</h3>
+            <p>
+              Role-based access, encrypted data storage, randomized questions,
+              and timed exams to ensure integrity.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon bg-green">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3>Instant Results</h3>
+            <p>
+              Automated evaluation of objective questions with immediate
+              feedback and detailed performance analytics.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon bg-orange">
+              <i class="fas fa-globe"></i>
+            </div>
+            <h3>Access Anywhere</h3>
+            <p>
+              Take exams from any device on campus network. No need to travel to
+              examination centers.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon bg-purple">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h3>Time Efficient</h3>
+            <p>
+              Reduce exam preparation time by 80% and eliminate manual grading
+              that takes 10-20 days per semester.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon bg-red">
+              <i class="fas fa-coins"></i>
+            </div>
+            <h3>Cost Effective</h3>
+            <p>
+              Save 45,000-60,000 Birr on printing and 25,000-30,000 Birr on
+              printer cartridges annually.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon bg-teal">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Detailed Reports</h3>
+            <p>
+              Comprehensive performance analytics for instructors and
+              administrators.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section (NEW) -->
+    <section id="about" class="features" style="background: #f8fafc">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">About Us</span>
+          <h2>Ethio-Italy Polytechnic College</h2>
+          <p>Excellence in Technology Education Since 2010 E.C.</p>
+        </div>
+
+        <div class="about-content">
+          <div class="about-text">
+            <h3>Modernizing Education Through Technology</h3>
+            <p>
+              Ethio-Italy Polytechnic College, located in Dire Dawa, Ethiopia,
+              has been at the forefront of technical and vocational education.
+              The Department of Information Technology is committed to providing
+              students with cutting-edge tools and platforms for academic
+              excellence.
+            </p>
+            <p>
+              The Online Examination System is a student-led project developed
+              by the 2026 graduating class to transform traditional paper-based
+              examinations into a secure, efficient, and accessible digital
+              platform.
+            </p>
+
+            <div class="about-stats">
+              <div class="about-stat">
+                <span class="number">15+</span>
+                <span class="label">Years of Excellence</span>
+              </div>
+              <div class="about-stat">
+                <span class="number">6</span>
+                <span class="label">Project Developers</span>
+              </div>
+              <div class="about-stat">
+                <span class="number">2026</span>
+                <span class="label">Graduating Class</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-image">
+            <svg width="100%" height="300" viewBox="0 0 400 300" fill="none">
+              <rect
+                width="400"
+                height="300"
+                rx="20"
+                fill="#1e3c72"
+                opacity="0.1"
+              />
+              <circle cx="200" cy="150" r="80" fill="#1e3c72" opacity="0.1" />
+              <path
+                d="M120 100L200 60L280 100L200 140L120 100Z"
+                fill="#f9a826"
+                opacity="0.3"
+              />
+              <path
+                d="M120 140L200 180L280 140"
+                stroke="#1e3c72"
+                stroke-width="3"
+                stroke-dasharray="5 5"
+              />
+              <text
+                x="150"
+                y="180"
+                fill="#1e3c72"
+                font-size="24"
+                font-weight="bold"
+              >
+                ETHIO-ITALY
+              </text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Role-Based Access Preview -->
+    <section class="roles-preview">
+      <div class="container">
+        <div class="section-header light">
+          <span class="section-tag">Who We Serve</span>
+          <h2>Three Powerful Interfaces</h2>
+          <p>Tailored experiences for every user type</p>
+        </div>
+
+        <div class="roles-grid">
+          <div class="role-card">
+            <div class="role-header student">
+              <i class="fas fa-user-graduate"></i>
+              <h3>Students</h3>
+            </div>
+            <div class="role-body">
+              <ul>
+                <li><i class="fas fa-check-circle"></i> Take timed exams</li>
+                <li>
+                  <i class="fas fa-check-circle"></i> View instant results
+                </li>
+                <li><i class="fas fa-check-circle"></i> Track performance</li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Access from anywhere
+                </li>
+              </ul>
+              <a
+                href="pages/auth/login.html?role=student"
+                class="btn btn-primary btn-block"
+                >Student Login</a
+              >
+            </div>
+          </div>
+
+          <div class="role-card featured">
+            <div class="role-header instructor">
+              <i class="fas fa-chalkboard-teacher"></i>
+              <h3>Instructors</h3>
+            </div>
+            <div class="role-body">
+              <ul>
+                <li>
+                  <i class="fas fa-check-circle"></i> Create & manage exams
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Question bank management
+                </li>
+                <li><i class="fas fa-check-circle"></i> Auto-grading</li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Performance analytics
+                </li>
+              </ul>
+              <a
+                href="pages/auth/login.html?role=instructor"
+                class="btn btn-primary btn-block"
+                >Instructor Login</a
+              >
+            </div>
+          </div>
+
+          <div class="role-card">
+            <div class="role-header admin">
+              <i class="fas fa-user-cog"></i>
+              <h3>Administrators</h3>
+            </div>
+            <div class="role-body">
+              <ul>
+                <li><i class="fas fa-check-circle"></i> User management</li>
+                <li><i class="fas fa-check-circle"></i> System oversight</li>
+                <li><i class="fas fa-check-circle"></i> Generate reports</li>
+                <li><i class="fas fa-check-circle"></i> Configure settings</li>
+              </ul>
+              <a
+                href="pages/auth/login.html?role=admin"
+                class="btn btn-primary btn-block"
+                >Admin Login</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section (NEW) -->
+    <section id="contact" class="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Contact Us</span>
+          <h2>Get In Touch</h2>
+          <p>
+            We're here to help with any questions about the Online Examination
+            System
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info-card">
+            <h3 style="margin-bottom: 25px; color: var(--primary-color)">
+              Contact Information
+            </h3>
+
+            <div class="contact-info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <h4>Address</h4>
+                <p>Ethio-Italy Polytechnic College<br />Dire Dawa, Ethiopia</p>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <h4>Phone</h4>
+                <p>+251-987-654-321<br />+251-123-456-789</p>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <h4>Email</h4>
+                <p>info@ethio-italy.edu.et<br />support@oes.edu.et</p>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <h4>Office Hours</h4>
+                <p>
+                  Monday - Friday: 8:00 AM - 5:00 PM<br />Saturday: 9:00 AM -
+                  1:00 PM
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <h3 style="margin-bottom: 25px; color: var(--primary-color)">
+              Send a Message
+            </h3>
+
+            <form id="contactForm">
+              <div class="form-group">
+                <input type="text" placeholder="Your Name" required />
+              </div>
+              <div class="form-group">
+                <input type="email" placeholder="Your Email" required />
+              </div>
+              <div class="form-group">
+                <input type="text" placeholder="Subject" />
+              </div>
+              <div class="form-group">
+                <textarea placeholder="Your Message" required></textarea>
+              </div>
+              <button type="submit" class="btn-submit">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <svg width="50" height="50" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="white" />
+              <path
+                d="M12 20L18 26L28 14"
+                stroke="#1e3c72"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+              <circle cx="28" cy="26" r="4" fill="#f9a826" />
+            </svg>
+            <p style="margin-top: 15px">
+              Modernizing examination processes at Ethio-Italy Polytechnic
+              College since 2026.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-telegram"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Contact Info</h4>
+            <ul class="contact-info">
+              <li><i class="fas fa-map-marker-alt"></i> Dire Dawa, Ethiopia</li>
+              <li><i class="fas fa-phone"></i> +251-987654321</li>
+              <li><i class="fas fa-envelope"></i> info@ethio-italy.edu.et</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Ethio-Italy Polytechnic College. All rights reserved. |
+            Developed by Department of Information Technology
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      // Contact form submission
+      document
+        .getElementById("contactForm")
+        ?.addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Thank you for your message! We will get back to you soon.");
+          this.reset();
+        });
+
+      // Smooth scroll for navigation
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

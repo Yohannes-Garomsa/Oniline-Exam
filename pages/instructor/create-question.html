@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Question Bank - Instructor</title>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="instructor-container">
+      <nav class="instructor-nav">
+        <div class="nav-brand">
+          <h2><i class="fas fa-chalkboard-teacher"></i> Instructor Panel</h2>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <a href="dashboard.html"
+              ><i class="fas fa-tachometer-alt"></i> Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="create-exam.html"
+              ><i class="fas fa-plus-circle"></i> Create Exam</a
+            >
+          </li>
+          <li>
+            <a href="manage-exams.html"
+              ><i class="fas fa-list"></i> Manage Exams</a
+            >
+          </li>
+          <li>
+            <a href="question-bank.html"
+              ><i class="fas fa-book"></i> Question Bank</a
+            >
+          </li>
+          <li>
+            <a href="create-question.html" class="active"
+              ><i class="fas fa-question-circle"></i> Create Question</a
+            >
+          </li>
+          <li>
+            <a href="#" onclick="logout()"
+              ><i class="fas fa-sign-out-alt"></i> Logout</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <main class="main-content">
+        <div class="page-header">
+          <h1><i class="fas fa-upload"></i> Upload Question Bank</h1>
+          <p>
+            Upload a PDF file containing questions to automatically extract and
+            add to your question bank.
+          </p>
+        </div>
+
+        <div class="form-container">
+          <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="pdfFile">Select PDF File</label>
+              <input
+                type="file"
+                id="pdfFile"
+                name="pdfFile"
+                accept=".pdf"
+                required
+              />
+              <small
+                >Upload a PDF with questions in the format: Question text
+                followed by options A, B, C, D, and correct answer.</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="courseId">Course</label>
+              <select id="courseId" name="courseId" required>
+                <!-- Options will be loaded dynamically -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="difficulty">Default Difficulty</label>
+              <select id="difficulty" name="difficulty">
+                <option value="Easy">Easy</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary">
+              <i class="fas fa-upload"></i> Upload and Extract Questions
+            </button>
+          </form>
+        </div>
+
+        <div id="results" class="results-section" style="display: none">
+          <h3>Extracted Questions</h3>
+          <div id="questionsList"></div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../assets/js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        loadCourses();
+      });
+
+      function loadCourses() {
+        fetch("../../api/instructor/get-courses.php", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("apiToken"),
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              const select = document.getElementById("courseId");
+              select.innerHTML = '<option value="">Select Course</option>';
+              data.courses.forEach((course) => {
+                select.innerHTML += `<option value="${course.id}">${course.course_name}</option>`;
+              });
+            }
+          });
+      }
+
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+
+          fetch("../../api/instructor/upload-questions.php", {
+            method: "POST",
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("apiToken"),
+            },
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                alert("Questions uploaded successfully!");
+                displayQuestions(data.questions);
+              } else {
+                alert("Error: " + data.message);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Upload failed.");
+            });
+        });
+
+      function displayQuestions(questions) {
+        const resultsDiv = document.getElementById("results");
+        const listDiv = document.getElementById("questionsList");
+        listDiv.innerHTML = "";
+        questions.forEach((q) => {
+          listDiv.innerHTML += `
+                    <div class="question-item">
+                        <h4>${q.question_text}</h4>
+                        <p><strong>Options:</strong> ${q.options.join(", ")}</p>
+                        <p><strong>Correct:</strong> ${q.correct_option}</p>
+                        <p><strong>Difficulty:</strong> ${q.difficulty}</p>
+                    </div>
+                `;
+        });
+        resultsDiv.style.display = "block";
+      }
+
+      function logout() {
+        localStorage.removeItem("apiToken");
+        window.location.href = "../../pages/auth/login.html";
+      }
+    </script>
+  </body>
+</html>

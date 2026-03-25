@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Exams · Admin · Online Examination System</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
+</head>
+<body>
+    <div class="dashboard-container">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <div class="admin-sidebar-logo">
+                    <img src="../../assets/image/OIP.webp" alt="Ethio-Italy Logo">
+                    <span>OES</span>
+                    <span class="admin-badge">Admin</span>
+                </div>
+            </div>
+            <ul class="admin-nav">
+                <li class="admin-nav-item">
+                    <a href="dashboard.html" class="admin-nav-link ">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="manage-users.html" class="admin-nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Manage Users</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="manage-courses.html" class="admin-nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Manage Courses</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="manage-exams.html" class="admin-nav-link active">
+                        <i class="fas fa-users"></i>
+                        <span>Manage Exams</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="reports.html" class="admin-nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="settings.html" class="admin-nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="admin-sidebar-footer">
+                <div class="admin-profile">
+                    <div class="admin-avatar" id="adminInitials">AD</div>
+                    <div class="admin-info">
+                        <h4 id="adminName">Admin User</h4>
+                        <p>System Administrator</p>
+                        <small id="adminEmail">admin@oes.edu.et</small>
+                    </div>
+                </div>
+                <a href="#" class="admin-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="admin-main">
+
+            <!-- ===== TOP BAR ===== -->
+            <div class="admin-topbar">
+                <div class="admin-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search exams...">
+                </div>
+                <div class="admin-actions">
+                    <div class="admin-lang">
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                    </div>
+                    <div class="admin-notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Manage Exams</h1>
+                <button class="btn-add" id="addExamBtn">
+                    <i class="fas fa-plus-circle"></i> Add New Exam
+                </button>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <i class="fas fa-filter"></i>
+                    <select class="filter-select" id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="draft">Draft</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <i class="fas fa-building"></i>
+                    <select class="filter-select" id="departmentFilter">
+                        <option value="all">All Departments</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="CS">Computer Science</option>
+                        <option value="ENG">Engineering</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="filter-input" id="searchFilter" placeholder="Search by title or course...">
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-cards">
+                <div class="stat-card active" id="statAll" data-filter="all">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="stat-icon blue"><i class="fas fa-file-alt"></i></div>
+                        <div>
+                            <h3>Total Exams</h3>
+                            <div class="stat-number" id="totalExams">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card" id="statActive" data-filter="active">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="stat-icon green"><i class="fas fa-play-circle"></i></div>
+                        <div>
+                            <h3>Active</h3>
+                            <div class="stat-number" id="activeExams">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card" id="statDraft" data-filter="draft">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="stat-icon orange"><i class="fas fa-pen"></i></div>
+                        <div>
+                            <h3>Draft</h3>
+                            <div class="stat-number" id="draftExams">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card" id="statCompleted" data-filter="completed">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="stat-icon purple"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <h3>Completed</h3>
+                            <div class="stat-number" id="completedExams">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exams Table -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Exam Title</th>
+                            <th>Course</th>
+                            <th>Instructor</th>
+                            <th>Duration</th>
+                            <th>Total Marks</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="examsTableBody">
+                        <!-- Dynamic rows -->
+                    </tbody>
+                </table>
+                <div id="emptyMessage" class="empty-message">No exams found.</div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+
+            <!-- Footer -->
+            <div class="admin-footer">
+                <p>Ethio-Italy Polytechnic College · Department of Information Technology</p>
+                <p>© 2026 E.C. · <span id="footerDate"></span></p>
+            </div>
+        </main>
+    </div>
+
+  <!-- Add/Edit Exam Modal -->
+<!-- Add/Edit Exam Modal (Compact & Wider) -->
+<div class="modal" id="examModal">
+    <div class="modal-content" style="max-width: 800px;">   <!-- wider modal -->
+        <div class="modal-header">
+            <h3 id="modalTitle">Add New Exam</h3>
+            <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="examForm">
+                <!-- Row 1: Title, Course, Instructor -->
+                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr;">
+                    <div class="form-group">
+                        <label>Exam Title</label>
+                        <input type="text" class="form-control" id="examTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Course</label>
+                        <select class="form-control" id="examCourse" required>
+                            <option value="">Select Course</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Instructor</label>
+                        <select class="form-control" id="examInstructor" required>
+                            <option value="">Select Instructor</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 2: Type, Duration, Total Marks -->
+                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr;">
+                    <div class="form-group">
+                        <label>Exam Type</label>
+                        <select class="form-control" id="examType">
+                            <option value="Quiz">Quiz</option>
+                            <option value="Mid">Mid</option>
+                            <option value="Final">Final</option>
+                            <option value="Practice">Practice</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (min)</label>
+                        <input type="number" class="form-control" id="durationMinutes" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Marks</label>
+                        <input type="number" class="form-control" id="totalMarks" required>
+                    </div>
+                </div>
+
+                <!-- Row 3: Passing Score, Attempts Allowed, Status -->
+                <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr;">
+                    <div class="form-group">
+                        <label>Passing Score (%)</label>
+                        <input type="number" class="form-control" id="passingScore" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Attempts Allowed</label>
+                        <input type="number" class="form-control" id="attemptsAllowed" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" id="examStatus">
+                            <option value="draft">Draft</option>
+                            <option value="active">Active</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 4: Available From, Available Until -->
+                <div class="form-row" style="grid-template-columns: 1fr 1fr;">
+                    <div class="form-group">
+                        <label>Available From</label>
+                        <input type="datetime-local" class="form-control" id="availableFrom">
+                    </div>
+                    <div class="form-group">
+                        <label>Available Until</label>
+                        <input type="datetime-local" class="form-control" id="availableUntil">
+                    </div>
+                </div>
+
+                <!-- Row 5: Show Results, Exam Password -->
+                <div class="form-row" style="grid-template-columns: 1fr 1fr;">
+                    <div class="form-group">
+                        <label>Show Results</label>
+                        <select class="form-control" id="showResults">
+                            <option value="immediate">Immediate</option>
+                            <option value="after_end">After Exam Ends</option>
+                            <option value="manual">Manual</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Exam Password (optional)</label>
+                        <input type="text" class="form-control" id="examPassword">
+                    </div>
+                </div>
+
+                <!-- Row 6: Description & Randomize Checkbox -->
+                <div class="form-row" style="grid-template-columns: 2fr 1fr; align-items: center;">
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="examDescription" rows="2"></textarea>
+                    </div>
+                    <div class="checkbox-group" style="margin-top: 20px;">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="randomizeQuestions">
+                            <label for="randomizeQuestions">Randomize questions</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" id="cancelModal">Cancel</button>
+            <button class="btn-save" id="saveExam">Save Exam</button>
+        </div>
+    </div>
+</div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelModal">Cancel</button>
+                <button class="btn-save" id="saveExam">Save Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/auth-check.js"></script>
+    <script src="../../assets/js/manage-exams.js"></script>
+</body>
+</html>

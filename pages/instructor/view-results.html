@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Results · Instructor · Online Examination System</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/instructor.css">
+    
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-header h1 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin: 0;
+        }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            color: #f9a826;
+        }
+        
+        .btn-export {
+            background: white;
+            border: 2px solid #f9a826;
+            color: #f9a826;
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-export:hover {
+            background: #f9a826;
+            color: white;
+        }
+        
+        .exam-summary {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #edf2f7;
+        }
+        
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .exam-header h2 {
+            margin: 0;
+            color: #0f172a;
+        }
+        
+        .exam-badge {
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .exam-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .stat-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f9a826;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .stat-sub {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+        
+        .results-table-container {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #edf2f7;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .results-table th {
+            background: #f8fafc;
+            padding: 18px 20px;
+            text-align: left;
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        
+        .results-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #edf2f7;
+            color: #334155;
+        }
+        
+        .results-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .student-avatar {
+            width: 40px;
+            height: 40px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #475569;
+        }
+        
+        .score {
+            font-weight: 700;
+        }
+        
+        .score.high {
+            color: #28a745;
+        }
+        
+        .score.medium {
+            color: #f9a826;
+        }
+        
+        .score.low {
+            color: #dc3545;
+        }
+        
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-pass {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-fail {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+        
+        .btn-view-detail {
+            background: none;
+            border: 2px solid #f9a826;
+            color: #f9a826;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .btn-view-detail:hover {
+            background: #f9a826;
+            color: white;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 1px solid #edf2f7;
+        }
+        
+        .chart-title {
+            font-size: 1.1rem;
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+        
+        .grade-distribution {
+            display: flex;
+            align-items: flex-end;
+            gap: 30px;
+            height: 200px;
+            margin-top: 30px;
+        }
+        
+        .grade-bar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .bar {
+            width: 60px;
+            background: #f9a826;
+            border-radius: 10px 10px 0 0;
+            transition: height 0.3s;
+        }
+        
+        .bar-label {
+            font-weight: 600;
+            color: #475569;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 30px;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: #475569;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .page-btn.active {
+            background: #f9a826;
+            color: white;
+            border-color: #f9a826;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="instructor-sidebar">
+            <div class="instructor-sidebar-header">
+                <div class="instructor-sidebar-logo">
+                    <img src="../../assets/images/OPI.webp" alt="Ethio-Italy Logo">
+                    <span>OES</span>
+                    <span class="instructor-badge">Instructor</span>
+                </div>
+            </div>
+            
+            <ul class="instructor-nav">
+                <li class="instructor-nav-item">
+                    <a href="dashboard.html" class="instructor-nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="manage-exams.html" class="instructor-nav-link active">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Manage Exams</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="question-bank.html" class="instructor-nav-link">
+                        <i class="fas fa-database"></i>
+                        <span>Question Bank</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="grade-exams.html" class="instructor-nav-link">
+                        <i class="fas fa-check-double"></i>
+                        <span>Grade Exams</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="results.html" class="instructor-nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Results</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="profile.html" class="instructor-nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="instructor-sidebar-footer">
+                <div class="instructor-profile">
+                    <div class="instructor-avatar">
+                        AY
+                    </div>
+                    <div class="instructor-info">
+                        <h4>Ayal Yitbarek</h4>
+                        <p>Senior Instructor · IT</p>
+                        <small>ETUSE/004/2013</small>
+                    </div>
+                </div>
+                <a href="../auth/login.html" class="instructor-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+        
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="instructor-main">
+            
+            <!-- Top Bar -->
+           
+            <!-- Top Bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: white; padding: 15px 25px; border-radius: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
+                <div style="display: flex; align-items: center; background: #f8fafc; border-radius: 50px; padding: 8px 20px; width: 320px;">
+                    <i class="fas fa-search" style="color: #94a3b8; margin-right: 12px;"></i>
+                    <input type="text" placeholder="Search exams, questions, students..." style="border: none; background: transparent; outline: none; width: 100%; font-size: 0.95rem;">
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <button class="lang-btn">EN</button>
+                    <div style="position: relative;">
+                        <i class="fas fa-bell" style="font-size: 1.3rem; color: #475569; cursor: pointer;"></i>
+                        <span style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 20px; font-weight: 700;">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page Header -->
+            <div class="page-header">
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <a href="manage-exams.html" class="back-link">
+                        <i class="fas fa-arrow-left"></i> Back to Exams
+                    </a>
+                    <h1>Exam Results</h1>
+                </div>
+                <button class="btn-export" onclick="alert('Exporting results...');">
+                    <i class="fas fa-download"></i> Export Results
+                </button>
+            </div>
+            
+            <!-- Exam Summary -->
+            <div class="exam-summary">
+                <div class="exam-header">
+                    <h2>Web Development - Final Exam</h2>
+                    <span class="exam-badge">Completed</span>
+                </div>
+                
+                <div class="exam-stats">
+                    <div class="stat-box">
+                        <div class="stat-value">45</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Submitted</div>
+                        <div class="stat-sub">3 pending</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">82%</div>
+                        <div class="stat-label">Average Score</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">92%</div>
+                        <div class="stat-label">Highest Score</div>
+                        <div class="stat-sub">Sara Simeles</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Table -->
+            <div class="results-table-container">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>ID</th>
+                            <th>Section</th>
+                            <th>Score</th>
+                            <th>Percentage</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="student-info">
+                                    <div class="student-avatar">SS</div>
+                                    Sara Simeles
+                                </div>
+                            </td>
+                            <td>ETUSE/061/2013</td>
+                            <td>A</td>
+                            <td><span class="score high">92/100</span></td>
+                            <td><span class="score high">92%</span></td>
+                            <td><span class="status-badge status-pass">Passed</span></td>
+                            <td><button class="btn-view-detail" onclick="alert('Viewing Sara\'s detailed results')">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="student-info">
+                                    <div class="student-avatar">MT</div>
+                                    Mehalet Temesgen
+                                </div>
+                            </td>
+                            <td>ETUSE/023/2013</td>
+                            <td>A</td>
+                            <td><span class="score high">85/100</span></td>
+                            <td><span class="score high">85%</span></td>
+                            <td><span class="status-badge status-pass">Passed</span></td>
+                            <td><button class="btn-view-detail" onclick="alert('Viewing Mehalet\'s detailed results')">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="student-info">
+                                    <div class="student-avatar">FB</div>
+                                    Firehiwot Birhanu
+                                </div>
+                            </td>
+                            <td>ETUSE/013/2013</td>
+                            <td>B</td>
+                            <td><span class="score medium">70/100</span></td>
+                            <td><span class="score medium">70%</span></td>
+                            <td><span class="status-badge status-pass">Passed</span></td>
+                            <td><button class="btn-view-detail" onclick="alert('Viewing Firehiwot\'s detailed results')">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="student-info">
+                                    <div class="student-avatar">AY</div>
+                                    Ayal Yitbarek
+                                </div>
+                            </td>
+                            <td>ETUSE/004/2013</td>
+                            <td>A</td>
+                            <td><span class="score high">88/100</span></td>
+                            <td><span class="score high">88%</span></td>
+                            <td><span class="status-badge status-pass">Passed</span></td>
+                            <td><button class="btn-view-detail" onclick="alert('Viewing Ayal\'s detailed results')">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="student-info">
+                                    <div class="student-avatar">SA</div>
+                                    Saada Amdlala
+                                </div>
+                            </td>
+                            <td>ETUSE/029/2013</td>
+                            <td>B</td>
+                            <td><span class="score low">56/100</span></td>
+                            <td><span class="score low">56%</span></td>
+                            <td><span class="status-badge status-fail">Failed</span></td>
+                            <td><button class="btn-view-detail" onclick="alert('Viewing Saada\'s detailed results')">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            <!-- Grade Distribution Chart -->
+            <div class="chart-container">
+                <div class="chart-title">
+                    <i class="fas fa-chart-bar" style="color: #f9a826; margin-right: 10px;"></i>
+                    Grade Distribution
+                </div>
+                
+                <div class="grade-distribution">
+                    <div class="grade-bar">
+                        <div class="bar" style="height: 60px;"></div>
+                        <span class="bar-label">A (90-100%)</span>
+                        <span>8 students</span>
+                    </div>
+                    <div class="grade-bar">
+                        <div class="bar" style="height: 100px;"></div>
+                        <span class="bar-label">B (80-89%)</span>
+                        <span>15 students</span>
+                    </div>
+                    <div class="grade-bar">
+                        <div class="bar" style="height: 80px;"></div>
+                        <span class="bar-label">C (70-79%)</span>
+                        <span>12 students</span>
+                    </div>
+                    <div class="grade-bar">
+                        <div class="bar" style="height: 40px;"></div>
+                        <span class="bar-label">D (60-69%)</span>
+                        <span>5 students</span>
+                    </div>
+                    <div class="grade-bar">
+                        <div class="bar" style="height: 20px;"></div>
+                        <span class="bar-label">F (Below 60%)</span>
+                        <span>2 students</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="instructor-footer">
+                <p>Ethio-Italy Polytechnic College · Department of Information Technology</p>
+                <p>© 2026 E.C. · Yekatit 2, 2018 E.C.</p>
+            </div>
+            
+        </main>
+    </div>
+    
+    <script>
+        // Logout
+        document.querySelector('.instructor-logout').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Logout?')) {
+                window.location.href = '../auth/login.html';
+            }
+        });
+    </script>
+</body>
+</html>

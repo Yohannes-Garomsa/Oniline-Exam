@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Attempt · Instructor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/instructor.css">
+    <style>
+        .grade-container { max-width: 900px; margin: 20px auto; background: white; border-radius: 20px; padding: 30px; }
+        .student-info { background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px; }
+        .question-card { background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 15px; }
+        .question-text { font-weight: 600; margin-bottom: 10px; }
+        .student-answer { background: white; padding: 10px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #1e3c72; }
+        .grade-input { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
+        .grade-input input { width: 80px; padding: 8px; border: 2px solid #e2e8f0; border-radius: 8px; }
+        .grade-input textarea { flex: 1; padding: 8px; border: 2px solid #e2e8f0; border-radius: 8px; }
+        .btn-save-grade { background: #1e3c72; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; }
+        .btn-save-grade:hover { background: #2a5298; }
+        .back-link { margin-bottom: 20px; display: inline-block; }
+        .auto-grade { color: #10b981; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="instructor-sidebar">...</aside>
+        <main class="main-content">
+            <div class="top-bar">...</div>
+            <a href="reports.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Reports</a>
+            <div class="grade-container" id="gradeContainer">
+                <h2>Grading Attempt</h2>
+                <div id="attemptInfo" class="student-info"></div>
+                <div id="questionsList"></div>
+                <button class="btn-save" id="saveAllGrades" style="display: none;">Save All Grades</button>
+            </div>
+        </main>
+    </div>
+    <script src="../../assets/js/auth-check.js"></script>
+    <script src="../../assets/js/grade-attempt.js"></script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings · Admin · Online Examination System</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
+</head>
+<body>
+    <div class="dashboard-container">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <div class="admin-sidebar-logo">
+                    <img src="../../assets/image/OIP.webp" alt="Ethio-Italy Logo">
+                    <span>OES</span>
+                    <span class="admin-badge">Admin</span>
+                </div>
+            </div>
+           
+            <ul class="admin-nav">
+                <li class="admin-nav-item">
+                    <a href="dashboard.html" class="admin-nav-link ">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="manage-users.html" class="admin-nav-link ">
+                        <i class="fas fa-users"></i>
+                        <span>Manage Users</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="manage-courses.html" class="admin-nav-link ">
+                        <i class="fas fa-users"></i>
+                        <span>Manage Courses</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="manage-exams.html" class="admin-nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Manage Exams</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="reports.html" class="admin-nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="settings.html" class="admin-nav-link active">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="admin-sidebar-footer">
+                <div class="admin-profile">
+                    <div class="admin-avatar" id="adminInitials">AD</div>
+                    <div class="admin-info">
+                        <h4 id="adminName">Admin User</h4>
+                        <p>System Administrator</p>
+                        <small id="adminEmail">admin@oes.edu.et</small>
+                    </div>
+                </div>
+                <a href="#" class="admin-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="admin-main">
+
+            <!-- ===== TOP BAR ===== -->
+            <div class="admin-topbar">
+                <div class="admin-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchSettings" placeholder="Search settings...">
+                </div>
+
+                <div class="admin-actions">
+                    <div class="admin-lang">
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                    </div>
+                    <div class="admin-notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>System Settings</h1>
+            </div>
+
+            <!-- Settings Grid -->
+            <div class="settings-grid">
+                <!-- Settings Navigation -->
+                <div class="settings-sidebar">
+                    <ul class="settings-nav">
+                        <li><a href="#" class="active" data-section="general"><i class="fas fa-sliders-h"></i> General</a></li>
+                        <li><a href="#" data-section="security"><i class="fas fa-shield-alt"></i> Security</a></li>
+                        <li><a href="#" data-section="email"><i class="fas fa-envelope"></i> Email Settings</a></li>
+                        <li><a href="#" data-section="exam"><i class="fas fa-file-alt"></i> Exam Defaults</a></li>
+                        <li><a href="#" data-section="backup"><i class="fas fa-database"></i> Backup</a></li>
+                        <li><a href="#" data-section="maintenance"><i class="fas fa-tools"></i> Maintenance</a></li>
+                    </ul>
+                </div>
+
+                <!-- Settings Content -->
+                <div class="settings-content">
+                    <!-- General Settings -->
+                    <div class="settings-section active" id="general">
+                        <h2>General Settings</h2>
+
+                        <div class="form-group">
+                            <label>System Name</label>
+                            <input type="text" class="form-control" id="systemName" value="Online Examination System">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Institution Name</label>
+                            <input type="text" class="form-control" id="institutionName" value="Ethio-Italy Polytechnic College">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Academic Year</label>
+                                <input type="text" class="form-control" id="academicYear" value="2018 E.C.">
+                            </div>
+                            <div class="form-group">
+                                <label>Semester</label>
+                                <select class="form-control" id="semester">
+                                    <option>First Semester</option>
+                                    <option>Second Semester</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Default Language</label>
+                            <select class="form-control" id="defaultLanguage">
+                                <option>English</option>
+                                <option>Amharic</option>
+                            </select>
+                        </div>
+
+                        <button class="btn-save" id="saveGeneral">Save Changes</button>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div class="settings-section" id="security">
+                        <h2>Security Settings</h2>
+
+                        <div class="info-box">
+                            <i class="fas fa-info-circle" style="color: #1e3c72; margin-right: 10px;"></i>
+                            Configure security parameters for the system.
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password Policy</label>
+                            <select class="form-control" id="passwordPolicy">
+                                <option>Strong (8+ chars, special chars, numbers)</option>
+                                <option>Medium (6+ chars, numbers)</option>
+                                <option>Basic (any)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Session Timeout (minutes)</label>
+                            <input type="number" class="form-control" id="sessionTimeout" value="30">
+                        </div>
+
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="twoFactor" checked>
+                                <label for="twoFactor">Enable two-factor authentication</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="forceHttps" checked>
+                                <label for="forceHttps">Force HTTPS</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="loginLimit">
+                                <label for="loginLimit">Enable login attempts limit</label>
+                            </div>
+                        </div>
+
+                        <button class="btn-save" id="saveSecurity">Save Changes</button>
+                    </div>
+
+                    <!-- Email Settings -->
+                    <div class="settings-section" id="email">
+                        <h2>Email Settings</h2>
+
+                        <div class="form-group">
+                            <label>SMTP Server</label>
+                            <input type="text" class="form-control" id="smtpServer" value="smtp.gmail.com">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Port</label>
+                                <input type="text" class="form-control" id="smtpPort" value="587">
+                            </div>
+                            <div class="form-group">
+                                <label>Encryption</label>
+                                <select class="form-control" id="smtpEncryption">
+                                    <option>TLS</option>
+                                    <option>SSL</option>
+                                    <option>None</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" id="emailAddress" value="noreply@oes.edu.et">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Password</label>
+                            <input type="password" class="form-control" id="emailPassword" value="********">
+                        </div>
+
+                        <button class="btn-save" id="saveEmail">Save Changes</button>
+                    </div>
+
+                    <!-- Exam Defaults -->
+                    <div class="settings-section" id="exam">
+                        <h2>Exam Defaults</h2>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Default Duration (minutes)</label>
+                                <input type="number" class="form-control" id="defaultDuration" value="120">
+                            </div>
+                            <div class="form-group">
+                                <label>Default Passing Score (%)</label>
+                                <input type="number" class="form-control" id="defaultPassingScore" value="50">
+                            </div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="autoSubmit" checked>
+                                <label for="autoSubmit">Enable auto-submit when time expires</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="showTimer" checked>
+                                <label for="showTimer">Show timer to students</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="reviewAnswers" checked>
+                                <label for="reviewAnswers">Allow students to review answers</label>
+                            </div>
+                        </div>
+
+                        <button class="btn-save" id="saveExamDefaults">Save Changes</button>
+                    </div>
+
+                    <!-- Backup Settings -->
+                    <div class="settings-section" id="backup">
+                        <h2>Backup Settings</h2>
+
+                        <div class="info-box" id="lastBackupInfo">
+                            <i class="fas fa-database" style="color: #1e3c72; margin-right: 10px;"></i>
+                            Last backup: February 19, 2026 at 2:30 AM
+                        </div>
+
+                        <div class="form-group">
+                            <label>Automatic Backup Frequency</label>
+                            <select class="form-control" id="backupFrequency">
+                                <option>Daily</option>
+                                <option>Weekly</option>
+                                <option>Monthly</option>
+                                <option>Never</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Backup Location</label>
+                            <input type="text" class="form-control" id="backupLocation" value="/backups/oes/">
+                        </div>
+
+                        <div style="display: flex; gap: 15px;">
+                            <button class="btn-save" id="saveBackup">Save Changes</button>
+                            <button class="btn-reset" id="backupNow">Backup Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Maintenance -->
+                    <div class="settings-section" id="maintenance">
+                        <h2>Maintenance</h2>
+
+                        <div class="info-box" id="systemHealthInfo">
+                            <i class="fas fa-info-circle" style="color: #1e3c72;"></i>
+                            System is running normally. Last check: Today at 10:00 AM
+                        </div>
+
+                        <div style="margin: 30px 0;">
+                            <h3 style="margin-bottom: 15px;">System Health</h3>
+                            <div class="stat-row">
+                                <span class="stat-label">Database Status</span>
+                                <span class="stat-value" style="color: #10b981;" id="dbStatus">Healthy</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Storage Used</span>
+                                <span class="stat-value" id="storageUsed">4.2 GB / 20 GB</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Active Users</span>
+                                <span class="stat-value" id="activeUsers">86</span>
+                            </div>
+                        </div>
+
+                        <div class="danger-zone">
+                            <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                            <p style="margin-bottom: 20px; color: #64748b;">These actions are irreversible. Please be careful.</p>
+
+                            <div style="display: flex; gap: 15px;">
+                                <button class="btn-danger" id="clearLogsBtn">Clear Logs</button>
+                                <button class="btn-danger" id="resetSystemBtn">Reset System</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="admin-footer">
+                <p>Ethio-Italy Polytechnic College · Department of Information Technology</p>
+                <p>© 2026 E.C. · <span id="footerDate"></span></p>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/auth-check.js"></script>
+    <script src="../../assets/js/settings.js"></script>
+</body>
+</html>

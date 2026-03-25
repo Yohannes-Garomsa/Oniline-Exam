@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Questions · Instructor · Online Examination System</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/instructor.css">
+    
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-header h1 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin: 0;
+        }
+        
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            color: #f9a826;
+        }
+        
+        .import-container {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid #edf2f7;
+        }
+        
+        .import-section {
+            margin-bottom: 30px;
+        }
+        
+        .import-section h3 {
+            font-size: 1.2rem;
+            color: #0f172a;
+            margin: 0 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        
+        .import-section h3 i {
+            color: #f9a826;
+            margin-right: 10px;
+        }
+        
+        .upload-area {
+            border: 3px dashed #e2e8f0;
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 25px;
+        }
+        
+        .upload-area:hover {
+            border-color: #f9a826;
+            background: #fffaf0;
+        }
+        
+        .upload-area i {
+            font-size: 4rem;
+            color: #f9a826;
+            margin-bottom: 15px;
+        }
+        
+        .upload-area h4 {
+            font-size: 1.2rem;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+        
+        .upload-area p {
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+        
+        .upload-area small {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+        
+        .file-info {
+            display: none;
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .file-info.show {
+            display: flex;
+        }
+        
+        .file-details {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .file-details i {
+            font-size: 2rem;
+            color: #10b981;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            color: #0f172a;
+        }
+        
+        .file-size {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        .btn-remove-file {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .format-sample {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .format-sample h4 {
+            font-size: 1rem;
+            color: #0f172a;
+            margin-bottom: 15px;
+        }
+        
+        .sample-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+        
+        .sample-table th {
+            background: #1e3c72;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .sample-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .sample-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .btn-download {
+            background: white;
+            border: 2px solid #f9a826;
+            color: #f9a826;
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 15px;
+        }
+        
+        .btn-download:hover {
+            background: #f9a826;
+            color: white;
+        }
+        
+        .import-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .option-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .option-card:hover {
+            border-color: #f9a826;
+            background: #fffaf0;
+        }
+        
+        .option-card.selected {
+            border-color: #f9a826;
+            background: #fffaf0;
+        }
+        
+        .option-card i {
+            font-size: 2rem;
+            color: #f9a826;
+            margin-bottom: 10px;
+        }
+        
+        .option-card h4 {
+            margin: 0 0 5px 0;
+            color: #0f172a;
+        }
+        
+        .option-card p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        
+        .preview-section {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .preview-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .preview-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .preview-item i {
+            color: #10b981;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f1f5f9;
+        }
+        
+        .btn-import {
+            background: #f9a826;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 40px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .btn-import:hover {
+            background: #e59400;
+            transform: translateY(-2px);
+        }
+        
+        .btn-import:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
+        
+        .btn-cancel {
+            background: white;
+            border: 2px solid #e2e8f0;
+            color: #475569;
+            padding: 14px 40px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .btn-cancel:hover {
+            background: #f1f5f9;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress-bar.show {
+            display: block;
+        }
+        
+        .progress-fill {
+            width: 0%;
+            height: 8px;
+            background: #f9a826;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+        
+        .import-status {
+            text-align: center;
+            color: #64748b;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .import-status.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="instructor-sidebar">
+            <div style="padding: 30px 25px; border-bottom: 1px solid #edf2f7;">
+                <div style="display: flex; align-items: center;">
+                    <img src="../../assets/images/OPI.webp" alt="Ethio-Italy Logo" style="height: 42px; width: auto; border-radius: 8px; margin-right: 12px;">
+                    <div>
+                        <span style="font-size: 1.5rem; font-weight: 700; color: #1e3c72;">OES</span>
+                        <span class="instructor-badge">Instructor</span>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="instructor-nav">
+                <li class="instructor-nav-item">
+                    <a href="dashboard.html" class="instructor-nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="manage-exams.html" class="instructor-nav-link">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Manage Exams</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="question-bank.html" class="instructor-nav-link active">
+                        <i class="fas fa-database"></i>
+                        <span>Question Bank</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="grade-exams.html" class="instructor-nav-link">
+                        <i class="fas fa-check-double"></i>
+                        <span>Grade Exams</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="results.html" class="instructor-nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Results</span>
+                    </a>
+                </li>
+                <li class="instructor-nav-item">
+                    <a href="profile.html" class="instructor-nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="instructor-sidebar-footer">
+                <div class="instructor-profile">
+                    <div class="instructor-avatar">
+                        AY
+                    </div>
+                    <div class="instructor-info">
+                        <h4>Ayal Yitbarek</h4>
+                        <p>Senior Instructor · IT</p>
+                        <small>ETUSE/004/2013</small>
+                    </div>
+                </div>
+                <a href="../auth/login.html" class="instructor-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+        
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="instructor-main">
+            
+           <!-- Top Bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: white; padding: 15px 25px; border-radius: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
+                <div style="display: flex; align-items: center; background: #f8fafc; border-radius: 50px; padding: 8px 20px; width: 320px;">
+                    <i class="fas fa-search" style="color: #94a3b8; margin-right: 12px;"></i>
+                    <input type="text" placeholder="Search exams, questions, students..." style="border: none; background: transparent; outline: none; width: 100%; font-size: 0.95rem;">
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <button class="lang-btn">EN</button>
+                    <div style="position: relative;">
+                        <i class="fas fa-bell" style="font-size: 1.3rem; color: #475569; cursor: pointer;"></i>
+                        <span style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 20px; font-weight: 700;">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Import Container -->
+            <div class="import-container">
+                
+                <!-- Upload Area -->
+                <div class="import-section">
+                    <h3><i class="fas fa-cloud-upload-alt"></i> Upload File</h3>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h4>Click to upload or drag and drop</h4>
+                        <p>CSV or Excel files only</p>
+                        <small>Maximum file size: 10MB</small>
+                        <input type="file" id="fileInput" style="display: none;" accept=".csv,.xlsx,.xls">
+                    </div>
+                    
+                    <div class="file-info" id="fileInfo">
+                        <div class="file-details">
+                            <i class="fas fa-file-excel"></i>
+                            <div>
+                                <div class="file-name" id="fileName">questions.csv</div>
+                                <div class="file-size" id="fileSize">25.5 KB</div>
+                            </div>
+                        </div>
+                        <button class="btn-remove-file" id="removeFile">
+                            <i class="fas fa-times-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Import Options -->
+                <div class="import-section">
+                    <h3><i class="fas fa-cog"></i> Import Options</h3>
+                    
+                    <div class="import-options">
+                        <div class="option-card selected" id="optionReplace">
+                            <i class="fas fa-sync-alt"></i>
+                            <h4>Replace Duplicates</h4>
+                            <p>Update existing questions with same ID</p>
+                        </div>
+                        
+                        <div class="option-card" id="optionSkip">
+                            <i class="fas fa-forward"></i>
+                            <h4>Skip Duplicates</h4>
+                            <p>Keep existing questions, add new ones</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Preview -->
+                <div class="import-section">
+                    <h3><i class="fas fa-eye"></i> Preview</h3>
+                    
+                    <div class="preview-section" id="previewSection" style="display: none;">
+                        <p style="margin-bottom: 10px;">Found <span id="previewCount">5</span> questions ready to import:</p>
+                        <div class="preview-list" id="previewList">
+                            <!-- Preview items will be added here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sample Format -->
+                <div class="import-section">
+                    <h3><i class="fas fa-file-code"></i> Sample Format</h3>
+                    
+                    <div class="format-sample">
+                        <p style="margin-bottom: 15px;">Your CSV file should have the following columns:</p>
+                        
+                        <table class="sample-table">
+                            <thead>
+                                <tr>
+                                    <th>question</th>
+                                    <th>course</th>
+                                    <th>difficulty</th>
+                                    <th>option_a</th>
+                                    <th>option_b</th>
+                                    <th>option_c</th>
+                                    <th>option_d</th>
+                                    <th>correct_answer</th>
+                                    <th>explanation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>What does HTML stand for?</td>
+                                    <td>ITEC 401</td>
+                                    <td>Easy</td>
+                                    <td>Hyper Text Markup Language</td>
+                                    <td>High Tech Markup Language</td>
+                                    <td>Hyper Transfer Markup Language</td>
+                                    <td>Hyper Text Machine Language</td>
+                                    <td>A</td>
+                                    <td>HTML is the standard language...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <button class="btn-download" id="downloadSample">
+                            <i class="fas fa-download"></i> Download Sample CSV
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <div class="import-status" id="importStatus">
+                    <i class="fas fa-spinner fa-spin"></i> Importing... Please wait
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-cancel" onclick="window.location.href='question-bank.html'">Cancel</button>
+                    <button class="btn-import" id="importBtn" disabled>
+                        <i class="fas fa-upload"></i> Import Questions
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="instructor-footer">
+                <p>Ethio-Italy Polytechnic College · Department of Information Technology</p>
+                <p>© 2026 E.C. · Yekatit 2, 2018 E.C.</p>
+            </div>
+            
+        </main>
+    </div>
+    
+    <script>
+        // Upload area click
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const removeFile = document.getElementById('removeFile');
+        const importBtn = document.getElementById('importBtn');
+        const previewSection = document.getElementById('previewSection');
+        const previewList = document.getElementById('previewList');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const importStatus = document.getElementById('importStatus');
+        
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function(e) {
+            if (this.files.length > 0) {
+                const file = this.files[0];
+                fileName.textContent = file.name;
+                fileSize.textContent = (file.size / 1024).toFixed(1) + ' KB';
+                fileInfo.classList.add('show');
+                importBtn.disabled = false;
+                
+                // Show preview
+                showPreview();
+            }
+        });
+        
+        removeFile.addEventListener('click', function() {
+            fileInput.value = '';
+            fileInfo.classList.remove('show');
+            importBtn.disabled = true;
+            previewSection.style.display = 'none';
+        });
+        
+        // Import options
+        const optionReplace = document.getElementById('optionReplace');
+        const optionSkip = document.getElementById('optionSkip');
+        
+        optionReplace.addEventListener('click', function() {
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            this.classList.add('selected');
+        });
+        
+        optionSkip.addEventListener('click', function() {
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            this.classList.add('selected');
+        });
+        
+        // Preview function
+        function showPreview() {
+            previewSection.style.display = 'block';
+            document.getElementById('previewCount').textContent = '5';
+            
+            const sampleQuestions = [
+                'What does HTML stand for?',
+                'Which SQL statement extracts data?',
+                'What is the default port for HTTP?',
+                'What is a JavaScript framework?',
+                'What does CSS stand for?'
+            ];
+            
+            previewList.innerHTML = '';
+            sampleQuestions.forEach(q => {
+                const item = document.createElement('div');
+                item.className = 'preview-item';
+                item.innerHTML = `<i class="fas fa-check-circle"></i> <span>${q}</span>`;
+                previewList.appendChild(item);
+            });
+        }
+        
+        // Download sample
+        document.getElementById('downloadSample').addEventListener('click', function() {
+            const csvContent = 'question,course,difficulty,option_a,option_b,option_c,option_d,correct_answer,explanation\n' +
+                '"What does HTML stand for?",ITEC 401,Easy,"Hyper Text Markup Language","High Tech Markup Language","Hyper Transfer Markup Language","Hyper Text Machine Language",A,"HTML is the standard language for web pages"\n' +
+                '"Which SQL statement extracts data?",ITEC 302,Medium,"SELECT","INSERT","UPDATE","DELETE",A,"SELECT is used to query data"';
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sample_questions.csv';
+            a.click();
+        });
+        
+        // Import button
+        importBtn.addEventListener('click', function() {
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file first');
+                return;
+            }
+            
+            progressBar.classList.add('show');
+            importStatus.classList.add('show');
+            importBtn.disabled = true;
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                progressFill.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        alert('✅ 25 questions imported successfully!');
+                        window.location.href = 'question-bank.html';
+                    }, 500);
+                }
+            }, 200);
+        });
+        
+        // Language toggle
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Logout
+        document.querySelector('.instructor-logout').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Logout?')) {
+                window.location.href = '../auth/login.html';
+            }
+        });
+    </script>
+</body>
+</html>

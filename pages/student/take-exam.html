@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Exam · Student</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/student.css">
+    <style>
+        .exam-header-bar {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 30px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .timer {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e3c72;
+            background: #e8f0fe;
+            padding: 10px 25px;
+            border-radius: 50px;
+        }
+        .timer.warning {
+            color: #dc3545;
+            background: #fee2e2;
+        }
+        .question-nav {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .question-nav button {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .question-nav button.active {
+            background: #1e3c72;
+            color: white;
+            border-color: #1e3c72;
+        }
+        .question-nav button.answered {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        .question-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        .options {
+            margin-top: 20px;
+        }
+        .option-item {
+            margin: 10px 0;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .option-item:hover {
+            border-color: #1e3c72;
+        }
+        .option-item.selected {
+            background: #e8f0fe;
+            border-color: #1e3c72;
+        }
+        .btn-submit {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn-submit:hover {
+            background: #218838;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Minimal header (no sidebar for exam taking) -->
+        <main class="main-content" style="margin-left: 0; padding: 20px 40px;">
+            <div class="exam-header-bar">
+                <div>
+                    <h2 id="examTitle">Loading Exam...</h2>
+                    <p id="courseCode"></p>
+                </div>
+                <div class="timer" id="timer">00:00</div>
+            </div>
+
+            <!-- Question navigation buttons -->
+            <div class="question-nav" id="questionNav"></div>
+
+            <!-- Current question display -->
+            <div class="question-container" id="questionContainer">
+                <div id="currentQuestion"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+
+            <!-- Navigation and submit buttons -->
+            <div class="nav-buttons">
+                <button class="btn-view" id="prevBtn" disabled>Previous</button>
+                <button class="btn-view" id="nextBtn">Next</button>
+                <button class="btn-submit" id="submitExamBtn">Submit Exam</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../assets/js/auth-check.js"></script>
+    <script src="../../assets/js/student-take-exam.js"></script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Users · Admin · Online Examination System</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="stylesheet" href="../../assets/css/admin.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- ===== SIDEBAR ===== -->
+      <aside class="admin-sidebar">
+        <div class="admin-sidebar-header">
+          <div class="admin-sidebar-logo">
+            <img src="../../assets/image/OIP.webp" alt="Ethio-Italy Logo" />
+            <span>OES</span>
+            <span class="admin-badge">Admin</span>
+          </div>
+        </div>
+
+        <ul class="admin-nav">
+          <li class="admin-nav-item">
+            <a href="dashboard.html" class="admin-nav-link">
+              <i class="fas fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="manage-users.html" class="admin-nav-link active">
+              <i class="fas fa-users"></i>
+              <span>Manage Users</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="manage-courses.html" class="admin-nav-link">
+              <i class="fas fa-users"></i>
+              <span>Manage Courses</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="manage-exams.html" class="admin-nav-link">
+              <i class="fas fa-users"></i>
+              <span>Manage Exams</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="reports.html" class="admin-nav-link">
+              <i class="fas fa-chart-bar"></i>
+              <span>Reports</span>
+            </a>
+          </li>
+          <li class="admin-nav-item">
+            <a href="settings.html" class="admin-nav-link">
+              <i class="fas fa-cog"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="admin-sidebar-footer">
+          <div class="admin-profile">
+            <div class="admin-avatar" id="adminInitials">AD</div>
+            <div class="admin-info">
+              <h4 id="adminName">Admin User</h4>
+              <p>System Administrator</p>
+              <small id="adminEmail">admin@oes.edu.et</small>
+            </div>
+          </div>
+          <a href="#" class="admin-logout" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </div>
+      </aside>
+
+      <!-- ===== MAIN CONTENT ===== -->
+      <main class="admin-main">
+        <!-- ===== TOP BAR ===== -->
+        <div class="admin-topbar">
+          <div class="admin-search">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search users..." />
+          </div>
+
+          <div class="admin-actions">
+            <div class="admin-lang">
+              <button class="lang-btn active" data-lang="en">EN</button>
+            </div>
+            <div class="admin-notification">
+              <i class="fas fa-bell"></i>
+              <span class="badge">3</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page Header with Add User Button -->
+        <div class="page-header">
+          <h1>Manage Users</h1>
+          <a href="add-user.html" class="btn-add">
+            <i class="fas fa-user-plus"></i> Add New User
+          </a>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <div class="filter-group">
+            <i class="fas fa-filter"></i>
+            <select class="filter-select" id="roleFilter">
+              <option value="all">All Roles</option>
+              <option value="student">Students</option>
+              <option value="instructor">Instructors</option>
+              <option value="admin">Admins</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <i class="fas fa-circle"></i>
+            <select class="filter-select" id="statusFilter">
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              class="filter-input"
+              id="nameFilter"
+              placeholder="Search by name or ID..."
+            />
+          </div>
+        </div>
+
+        <!-- Stats Cards (Clickable Filters) -->
+        <div class="stats-cards">
+          <div class="stat-card active" id="statAll" data-filter="all">
+            <div style="display: flex; align-items: center; gap: 15px">
+              <div class="stat-icon blue" style="background: #dbeafe">
+                <i class="fas fa-users" style="color: #1e3c72"></i>
+              </div>
+              <div>
+                <h3>Total Users</h3>
+                <div class="stat-number" id="totalUsers">0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" id="statStudents" data-filter="student">
+            <div style="display: flex; align-items: center; gap: 15px">
+              <div class="stat-icon green" style="background: #dcfce7">
+                <i class="fas fa-user-graduate" style="color: #166534"></i>
+              </div>
+              <div>
+                <h3>Students</h3>
+                <div class="stat-number" id="totalStudents">0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" id="statInstructors" data-filter="instructor">
+            <div style="display: flex; align-items: center; gap: 15px">
+              <div class="stat-icon orange" style="background: #ffedd5">
+                <i class="fas fa-chalkboard-teacher" style="color: #9a3412"></i>
+              </div>
+              <div>
+                <h3>Instructors</h3>
+                <div class="stat-number" id="totalInstructors">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="users-table-container">
+          <table class="users-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <!-- Data will be loaded dynamically via JavaScript -->
+            </tbody>
+          </table>
+          <div id="emptyMessage" class="empty-message">
+            No users found matching your filters.
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+          <!-- Generated by JavaScript -->
+        </div>
+
+        <!-- Footer -->
+        <div class="admin-footer">
+          <p>
+            Ethio-Italy Polytechnic College · Department of Information
+            Technology
+          </p>
+          <p>© 2026 E.C. · <span id="footerDate"></span></p>
+        </div>
+      </main>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal" id="editModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit User</h3>
+          <button class="modal-close" id="closeEditModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" class="form-control" id="editName" required />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="editEmail"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>ID</label>
+              <input type="text" class="form-control" id="editId" readonly />
+            </div>
+            <div class="form-group">
+              <label
+                >Password <small>(leave blank to keep current)</small></label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="editPassword"
+                placeholder="New password"
+              />
+            </div>
+            <div class="form-group">
+              <label>Role</label>
+              <select class="form-control" id="editRole">
+                <option value="student">Student</option>
+                <option value="instructor">Instructor</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Department</label>
+              <input type="text" class="form-control" id="editDept" />
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select class="form-control" id="editStatus">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" id="cancelEdit">Cancel</button>
+          <button class="btn-save" id="saveEdit">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/auth-check.js"></script>
+    <script src="../../assets/js/manage-users.js"></script>
+  </body>
+</html>

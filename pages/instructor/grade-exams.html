@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Exams · Instructor · Online Examination System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/instructor.css">
+    <style>
+        .pending-list { background: white; border-radius: 20px; padding: 25px; margin-top: 20px; }
+        .exam-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #edf2f7; }
+        .exam-item:last-child { border-bottom: none; }
+        .badge-pending { background: #f97316; color: white; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; }
+        .grade-table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        .grade-table th { background: #f8fafc; padding: 15px; text-align: left; }
+        .grade-table td { padding: 15px; border-bottom: 1px solid #edf2f7; }
+        .grade-table input { width: 80px; padding: 8px; border: 2px solid #e2e8f0; border-radius: 8px; }
+        .btn-submit { background: #1e3c72; color: white; border: none; padding: 12px 30px; border-radius: 40px; margin-top: 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="instructor-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../../assets/image/OIP.webp" alt="Ethio-Italy Logo">
+                    <span>OES</span>
+                    <span class="role-badge">Instructor</span>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="nav-item"><a href="manage-exams.html" class="nav-link"><i class="fas fa-file-alt"></i> Manage Exams</a></li>
+                    <li class="nav-item">
+                        <a href="manage-exam-questions.html" class="nav-link">
+                            <i class="fas fa-tasks"></i>
+                            <span>Exam Questions</span>
+                        </a>
+                    </li>
+                <li class="nav-item"><a href="manage-questions.html" class="nav-link"><i class="fas fa-question-circle"></i> Question Bank</a></li>
+                <li class="nav-item"><a href="grade-exams.html" class="nav-link active"><i class="fas fa-check-double"></i> Grade Exams</a></li>
+                <li class="nav-item"><a href="results.html" class="nav-link"><i class="fas fa-chart-bar"></i> Results</a></li>
+                 <li class="nav-item">
+                    <a href="report.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar" id="userInitials">IN</div>
+                    <div class="user-info">
+                        <h4 id="userName">Instructor</h4>
+                        <p id="userEmail">instructor@oes.edu.et</p>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Search..."></div>
+                <div class="top-bar-actions">
+                    <div class="lang-switch"><button class="lang-btn active">EN</button><button class="lang-btn">አማ</button></div>
+                    <div class="notifications"><i class="fas fa-bell"></i><span class="badge">3</span></div>
+                </div>
+            </div>
+
+            <h1>Grade Exams</h1>
+
+            <!-- Pending Exams List -->
+            <div class="pending-list" id="pendingExams">
+                <!-- Loaded dynamically -->
+            </div>
+
+            <!-- Grading Area (shown after selecting an exam) -->
+            <div id="gradingArea" style="display:none; margin-top:30px;">
+                <h2 id="selectedExamTitle"></h2>
+                <table class="grade-table">
+                    <thead><tr><th>Student</th><th>ID</th><th>Current Score</th><th>Enter Score</th><th>Action</th></tr></thead>
+                    <tbody id="gradeBody"></tbody>
+                </table>
+                <button class="btn-submit" id="submitGrades">Submit All Grades</button>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer"><p>Ethio-Italy Polytechnic College · <span id="footerDate"></span></p></div>
+        </main>
+    </div>
+
+    <script src="../../assets/js/auth-check.js"></script>
+    <script src="../../assets/js/instructor-grading.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register · Online Examination System</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body register-page">
+    <div class="register-container">
+        <div class="register-grid">
+            <!-- Left Illustration (same as before) -->
+            <div class="register-illustration">
+                <div class="illustration-content">
+                    <div class="sidebar-logo">
+                        <img src="../../assets/images/OPI.webp" alt="Ethio-Italy Logo" style="height: 40px; width: auto;">
+                        <span>OES</span>
+                    </div>
+                    <h2>Join Our Community</h2>
+                    <p>Create your account today</p>
+                    <div class="benefits-list">
+                        <div class="benefit-item"><i class="fas fa-check-circle"></i><span>Access online examinations</span></div>
+                        <div class="benefit-item"><i class="fas fa-check-circle"></i><span>Track your performance</span></div>
+                        <div class="benefit-item"><i class="fas fa-check-circle"></i><span>Instant results and feedback</span></div>
+                        <div class="benefit-item"><i class="fas fa-check-circle"></i><span>Secure and reliable platform</span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Registration Form -->
+            <div class="register-form-container">
+                <div class="register-header">
+                    <div class="register-logo">
+                        <svg width="50" height="50" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="10" fill="#1e3c72"/>
+                            <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="28" cy="26" r="4" fill="#f9a826"/>
+                        </svg>
+                        <span>OES</span>
+                    </div>
+                    <h1>Create Account</h1>
+                    <p>Join Ethio-Italy Online Examination System</p>
+                </div>
+                <form id="registerForm">
+                    <!-- Role Selection -->
+                    <div class="role-section">
+                        <label>I am registering as:</label>
+                        <div class="role-selector">
+                            <label class="role-option"><input type="radio" name="role" value="student" checked id="roleStudent"> <span><i class="fas fa-user-graduate"></i> Student</span></label>
+                            <label class="role-option"><input type="radio" name="role" value="instructor" id="roleInstructor"> <span><i class="fas fa-chalkboard-teacher"></i> Instructor</span></label>
+                        </div>
+                    </div>
+                    <!-- Personal Info -->
+                    <div class="form-row">
+                        <div class="form-group"><label><i class="fas fa-user"></i> First Name</label><input type="text" id="firstName" required></div>
+                        <div class="form-group"><label><i class="fas fa-user"></i> Last Name</label><input type="text" id="lastName" required></div>
+                    </div>
+                    <!-- Student Fields -->
+                    <div id="studentFields">
+                        <div class="form-group"><label><i class="fas fa-id-card"></i> Student ID</label><input type="text" id="studentId" required></div>
+                        <div class="form-group"><label><i class="fas fa-layer-group"></i> Department</label>
+                            <select id="department" required>
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Software Engineering">Software Engineering</option>
+                                <option value="Network Administration">Network Administration</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label><i class="fas fa-calendar"></i> Year of Study</label>
+                                <select id="year" required>
+                                    <option value="1">1st Year</option><option value="2">2nd Year</option><option value="3">3rd Year</option><option value="4">4th Year</option><option value="5">5th Year</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label><i class="fas fa-users"></i> Section</label>
+                                <select id="section" required><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select>
+                            </div>
+                        </div>
+                        <div class="form-group"><label><i class="fas fa-star"></i> GPA (optional)</label><input type="number" step="0.01" min="0" max="4" id="gpa"></div>
+                    </div>
+                    <!-- Instructor Fields (hidden) -->
+                    <div id="instructorFields" style="display: none;">
+                        <div class="form-group"><label><i class="fas fa-id-card"></i> Employee ID</label><input type="text" id="employeeId"></div>
+                        <div class="form-group"><label><i class="fas fa-layer-group"></i> Department</label>
+                            <select id="instructorDept">
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Software Engineering">Software Engineering</option>
+                                <option value="Network Administration">Network Administration</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label><i class="fas fa-graduation-cap"></i> Qualification</label>
+                                <select id="qualification">
+                                    <option value="MSc in Computer Science">MSc in Computer Science</option>
+                                    <option value="MSc in Information Technology">MSc in Information Technology</option>
+                                    <option value="BSc in Computer Science">BSc in Computer Science</option>
+                                    <option value="PhD in Computer Science">PhD in Computer Science</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label><i class="fas fa-briefcase"></i> Experience (years)</label><input type="number" min="0" value="5" id="experience"></div>
+                        </div>
+                    </div>
+                    <!-- Contact -->
+                    <div class="form-group"><label><i class="fas fa-envelope"></i> Email Address</label><input type="email" id="email" required></div>
+                    <div class="form-group"><label><i class="fas fa-phone"></i> Phone Number</label><input type="tel" id="phone"></div>
+                    <!-- Password -->
+                    <div class="form-row">
+                        <div class="form-group"><label><i class="fas fa-lock"></i> Password</label><div class="password-field"><input type="password" id="password" required><button type="button" class="toggle-password"><i class="fas fa-eye"></i></button></div></div>
+                        <div class="form-group"><label><i class="fas fa-lock"></i> Confirm Password</label><div class="password-field"><input type="password" id="confirmPassword" required><button type="button" class="toggle-password"><i class="fas fa-eye"></i></button></div></div>
+                    </div>
+                    <!-- Terms -->
+                    <div class="terms"><input type="checkbox" id="terms" required><label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label></div>
+                    <!-- Submit -->
+                    <button type="submit" class="btn-register"><i class="fas fa-user-plus"></i> Create Account</button>
+                    <div class="login-link">Already have an account? <a href="login.html">Sign In</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../../assets/js/auth.js"></script>
+</body>
+</html>
