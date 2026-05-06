@@ -1,6 +1,6 @@
 -- Create Database
-CREATE DATABASE IF NOT EXISTS online_exam_system;
-USE online_exam_system;
+CREATE DATABASE IF NOT EXISTS if0_41849798_online_exam_system;
+USE if0_41849798_online_exam_system;
 
 -- =====================================================
 -- USERS TABLE (Students, Instructors, Admins)
